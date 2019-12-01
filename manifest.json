@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "Kill Reddit Front Page",
+    "version": "0.1",
+
+    "description": "Removes the Reddit front page.",
+
+    "icons": {
+        "48": "icons/kill-48.png"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*.reddit.com/*"],
+            "js": ["kill.js"]
+        }
+    ]
+}
