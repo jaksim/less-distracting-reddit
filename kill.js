@@ -1,6 +1,7 @@
 console.debug("running manually")
 registerBodyObserver();
 killFrontPage();
+killMoreFromThisCommunity();
 
 
 const HIDDEN_STYLE = 'position: absolute; height: 0px; overflow: hidden;';
@@ -31,11 +32,26 @@ function killFrontPage() {
     }
 }
 
+// Only on new reddit
+function killMoreFromThisCommunity() {
+    var xpath = "//div[text()='More posts from the ']";
+    var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (!matchingElement) {
+        console.debug("Could not find the 'More posts from the ... community' section");
+        return;
+    }
+
+    if (!isElementHidden) {
+        hideElement(matchingElement.parentElement);
+    	setTimeout(killMoreFromThisCommunity, 2000);
+    }
+}
+
 function registerBodyObserver() {
-    // We're going to listen to changes on our container, so we can check if the
+    // We're going to listen to changes in our container, so we can check if the
     // url has changed.
     // The only other way to do this without a timer (that actually works with
-    // new Reddit) is to use the extensions WebNavigation API, but that requires a background
+    // new Reddit) is to use the WebExtensions webNavigation API, but that requires a background
     // script and way broader and scarier permissions than we want to get.
     var oldUrl = document.location.href;
 
