@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "Kill Reddit Front Page",
+    "name": "Less Distracting Reddit",
     "version": "0.1",
 
-    "description": "Removes the Reddit front page.",
+    "description": "Kill Reddit front page + other features to make Reddit a little less distracting.",
 
     "icons": {
         "48": "icons/kill-48.png"
