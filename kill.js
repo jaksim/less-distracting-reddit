@@ -1,8 +1,10 @@
-console.debug("running manually")
 registerBodyObserver();
 killFrontPage();
 killMoreFromThisCommunity();
-
+killFrontPageOld();
+killMoreFromThisCommunityOld();
+killReadNextOld();
+killSubredditsListTopbarOld();
 
 const HIDDEN_STYLE = 'position: absolute; height: 0px; overflow: hidden;';
 function hideElement(element) {
@@ -14,7 +16,6 @@ function hideElement(element) {
 function isElementHidden(element) {
     return container.getAttribute('style') === HIDDEN_STYLE;
 }
-
 
 // New front page
 function killFrontPage() {
@@ -29,6 +30,23 @@ function killFrontPage() {
 
 	    // Check again in 2 seconds. SPA with tons of JS makes things quite unpredictable, so let's be safe here.
 	    setTimeout(killFrontPage, 2000);
+    }
+}
+
+function hideElementOld(element) {
+    element.setAttribute('style', 'display: none');
+}
+
+function killFrontPageOld() {
+    const chooseCountry = document.querySelector("div.menuarea");
+    chooseCountry && hideElementOld(chooseCountry);
+
+    const trendingSubreddits = document.querySelector("div.trending-subreddits");
+    trendingSubreddits && hideElementOld(trendingSubreddits);
+
+    if (window.location.href.indexOf("comments") === -1) {
+        const mainContent = document.getElementById("siteTable");
+        mainContent && hideElementOld(mainContent);
     }
 }
 
@@ -47,6 +65,30 @@ function killMoreFromThisCommunity() {
     }
 }
 
+function killMoreFromThisCommunityOld() {
+    const moreFromSpacer = document.querySelector("div.spacer.seo-comments");
+    moreFromSpacer && hideElementOld(moreFromSpacer);
+
+    const moreFromContent = document.querySelector("div.spacer.seo-comments-recommendations");
+    moreFromContent && hideElementOld(moreFromContent);
+
+    const commentsContinued = document.getElementById("bottom-comments");
+    commentsContinued && hideElementOld(commentsContinued);
+}
+
+function killReadNextOld() {
+    const readNextContainer = document.querySelector("div.read-next-container");
+    readNextContainer && hideElementOld(readNextContainer);
+}
+
+function killSubredditsListTopbarOld() {
+    const srList = document.querySelector("div.sr-list");
+    srList && hideElementOld(srList);
+
+    const srMoreLink = document.getElementById("sr-more-link");
+    srMoreLink && hideElementOld(srMoreLink);
+}
+
 function registerBodyObserver() {
     // We're going to listen to changes in our container, so we can check if the
     // url has changed.
@@ -62,5 +104,6 @@ function registerBodyObserver() {
         }
     });
 
-    observer.observe(document.getElementById("2x-container"), {childList: true, subtree: true});
+    const container = document.getElementById("2x-container"); 
+    container && observer.observe(container, {childList: true, subtree: true});
 }
