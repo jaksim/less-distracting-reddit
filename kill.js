@@ -1,12 +1,5 @@
-registerBodyObserver();
-killFrontPage();
-killMoreFromThisCommunity();
-killFrontPageOld();
-killMoreFromThisCommunityOld();
-killReadNextOld();
-killSubredditsListTopbarOld();
-
 const HIDDEN_STYLE = 'position: absolute; height: 0px; overflow: hidden;';
+
 function hideElement(element) {
     // Note: Going the easy route and just setting 'display: none' sends a reddit's script
     // into some sort of infinite loop, eating up lots of CPU.
@@ -14,7 +7,7 @@ function hideElement(element) {
 }
 
 function isElementHidden(element) {
-    return container.getAttribute('style') === HIDDEN_STYLE;
+    return element.getAttribute('style') === HIDDEN_STYLE;
 }
 
 // New front page
@@ -59,9 +52,9 @@ function killMoreFromThisCommunity() {
         return;
     }
 
-    if (!isElementHidden) {
+    if (!isElementHidden(matchingElement.parentElement)) {
         hideElement(matchingElement.parentElement);
-    	setTimeout(killMoreFromThisCommunity, 2000);
+        setTimeout(killMoreFromThisCommunity, 2000);
     }
 }
 
@@ -107,3 +100,11 @@ function registerBodyObserver() {
     const container = document.getElementById("2x-container"); 
     container && observer.observe(container, {childList: true, subtree: true});
 }
+
+registerBodyObserver();
+killFrontPage();
+killMoreFromThisCommunity();
+killFrontPageOld();
+killMoreFromThisCommunityOld();
+killReadNextOld();
+killSubredditsListTopbarOld();
