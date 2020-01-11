@@ -111,7 +111,8 @@ function registerBodyObserver() {
 }
 
 function kill() {
-    if (options.block_r_all && urlParser.subreddit === 'all' ||
+    if (options.block_frontpage && urlParser.isOnFrontPage ||
+        options.block_r_all && urlParser.subreddit === 'all' ||
         options.block_r_popular && urlParser.subreddit === 'popular') {
 
         killBrowsePage();
