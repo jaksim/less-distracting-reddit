@@ -1,4 +1,6 @@
 const HIDDEN_STYLE = 'position: absolute; height: 0px; overflow: hidden;';
+const urlParser = new UrlParser(window.location.href);
+var options = {};
 
 function hideElement(element) {
     // Note: Going the easy route and just setting 'display: none' sends a reddit's script
@@ -11,7 +13,7 @@ function isElementHidden(element) {
 }
 
 // New front page
-function killFrontPage() {
+function killBrowsePage() {
     let container = document.querySelector("div.ListingLayout-outerContainer");
     if (!container) {
         console.debug("Could not find front page container")
@@ -22,7 +24,7 @@ function killFrontPage() {
         hideElement(container);
 
 	    // Check again in 2 seconds. SPA with tons of JS makes things quite unpredictable, so let's be safe here.
-	    setTimeout(killFrontPage, 2000);
+	    setTimeout(killBrowsePage, 2000);
     }
 }
 
@@ -30,7 +32,7 @@ function hideElementOld(element) {
     element.setAttribute('style', 'display: none');
 }
 
-function killFrontPageOld() {
+function killBrowsePageOld() {
     const chooseCountry = document.querySelector("div.menuarea");
     chooseCountry && hideElementOld(chooseCountry);
 
@@ -82,6 +84,13 @@ function killSubredditsListTopbarOld() {
     srMoreLink && hideElementOld(srMoreLink);
 }
 
+function loadOptions() {
+    chrome.storage.sync.get(["options"], function(result) {
+        options = result.options || {};
+        kill();
+    });
+}
+
 function registerBodyObserver() {
     // We're going to listen to changes in our container, so we can check if the
     // url has changed.
@@ -92,8 +101,8 @@ function registerBodyObserver() {
 
     var observer = new MutationObserver(function() {
         if (oldUrl != document.location.href) {
-            oldUrl = document.location.href;
-            killFrontPage();
+            urlParser.url = document.location.href;
+            kill();
         }
     });
 
@@ -101,10 +110,19 @@ function registerBodyObserver() {
     container && observer.observe(container, {childList: true, subtree: true});
 }
 
+function kill() {
+    if (options.block_r_all && urlParser.subreddit === 'all' ||
+        options.block_r_popular && urlParser.subreddit === 'popular') {
+
+        killBrowsePage();
+        killBrowsePageOld();
+    }
+}
+
+
+loadOptions();
 registerBodyObserver();
-killFrontPage();
 killMoreFromThisCommunity();
-killFrontPageOld();
 killMoreFromThisCommunityOld();
 killReadNextOld();
 killSubredditsListTopbarOld();

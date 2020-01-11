@@ -1,21 +1,21 @@
 function saveOptions(e) {
     e.preventDefault();
     chrome.storage.sync.set({
-        color: document.querySelector("#option").value
+        options: {
+            block_r_all: document.querySelector("#block_r_all").checked,
+            block_r_popular: document.querySelector("#block_r_popular").checked,
+        }
     });
 }
 
 function loadOptions() {
-    function setCurrentChoice(result) {
-        document.querySelector("#option").value = result.option || "blue";
+    function setCurrentChoices(result) {
+        const options = result.options || {};
+        document.querySelector("#block_r_all").checked = options.block_r_all || false;
+        document.querySelector("#block_r_popular").checked = options.block_r_popular || false;
     }
 
-    function onError(error) {
-        console.error(`Error: ${error}`);
-    }
-
-    var getting = chrome.storage.sync.get("option");
-    getting.then(setCurrentChoice, onError);
+    chrome.storage.sync.get(["options"], setCurrentChoices);
 }
 
 document.addEventListener("DOMContentLoaded", loadOptions);
