@@ -12,7 +12,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.reddit.com/*"],
-            "js": ["kill.js"]
+            "js": ["UrlParser.js", "kill.js"]
         }
     ],
 
