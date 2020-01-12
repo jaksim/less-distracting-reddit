@@ -6,7 +6,8 @@
     "description": "Kill Reddit front page + other features to make Reddit a little less distracting.",
 
     "icons": {
-        "48": "icons/kill-48.png"
+        "48": "img/icon.png",
+        "96": "img/icon2x.png"
     },
 
     "content_scripts": [
