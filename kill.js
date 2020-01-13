@@ -75,7 +75,7 @@ function killReadNextOld() {
     readNextContainer && hideElementOld(readNextContainer);
 }
 
-function killSubredditsListTopbarOld() {
+function killTopbarSubredditsListOld() {
     const srList = document.querySelector("div.sr-list");
     srList && hideElementOld(srList);
 
@@ -122,12 +122,11 @@ function kill() {
         killMoreFromThisCommunity();
         killMoreFromThisCommunityOld();
     }
-}
 
+    if (options.block_topbar_subreddits_list) {
+        killTopbarSubredditsListOld();
+    }
+}
 
 loadOptions();
 registerBodyObserver();
-killMoreFromThisCommunity();
-killMoreFromThisCommunityOld();
-killReadNextOld();
-killSubredditsListTopbarOld();

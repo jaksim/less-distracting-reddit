@@ -6,6 +6,7 @@ function saveOptions(e) {
             block_r_all: document.querySelector("#block_r_all").checked,
             block_r_popular: document.querySelector("#block_r_popular").checked,
             block_more_from_this_community: document.querySelector("#block_more_from_this_community").checked,
+            block_topbar_subreddits_list: document.querySelector("#block_topbar_subreddits_list").checked,
         }
     });
 }
@@ -17,6 +18,7 @@ function loadOptions() {
         document.querySelector("#block_r_all").checked = options.block_r_all || false;
         document.querySelector("#block_r_popular").checked = options.block_r_popular || false;
         document.querySelector("#block_more_from_this_community").checked = options.block_more_from_this_community || false;
+        document.querySelector("#block_topbar_subreddits_list").checked = options.block_topbar_subreddits_list || false;
     }
 
     chrome.storage.sync.get(["options"], setCurrentChoices);
