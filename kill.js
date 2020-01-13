@@ -83,6 +83,22 @@ function killTopbarSubredditsListOld() {
     srMoreLink && hideElementOld(srMoreLink);
 }
 
+function killMySubredditsDropdown() {
+    const el = document.querySelector("div[aria-label='Start typing to filter your communities or use up and down to select.']");
+    if (el && !isElementHidden(el)) {
+        hideElement(el);
+        setTimeout(killMySubredditsDropdown, 2000);
+    }
+}
+
+function killMySubredditsDropdownOld() {
+    const xpath = "//span[text()='my subreddits']/..";
+    const matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (matchingElement) {
+        hideElementOld(matchingElement);
+    }
+}
+
 function loadOptions() {
     chrome.storage.sync.get(["options"], function(result) {
         options = result.options || {};
@@ -123,8 +139,17 @@ function kill() {
         killMoreFromThisCommunityOld();
     }
 
+    if (options.block_read_next_box && urlParser.isInComments) {
+        killReadNextOld();
+    }
+
     if (options.block_topbar_subreddits_list) {
         killTopbarSubredditsListOld();
+    }
+
+    if (options.block_my_subreddits_dropdown) {
+        killMySubredditsDropdown();
+        killMySubredditsDropdownOld();
     }
 }
 
