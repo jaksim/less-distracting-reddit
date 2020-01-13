@@ -45,7 +45,6 @@ function killBrowsePageOld() {
     }
 }
 
-// Only on new reddit
 function killMoreFromThisCommunity() {
     var xpath = "//div[text()='More posts from the ']";
     var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -117,6 +116,11 @@ function kill() {
 
         killBrowsePage();
         killBrowsePageOld();
+    }
+
+    if (options.block_more_from_this_community && urlParser.isInComments) {
+        killMoreFromThisCommunity();
+        killMoreFromThisCommunityOld();
     }
 }
 
