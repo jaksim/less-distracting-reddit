@@ -18,7 +18,7 @@
     ],
 
     "options_ui": {
-        "open_in_tab": true,
+        "open_in_tab": false,
         "page": "options/options.html"
     },
 
