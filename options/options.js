@@ -31,4 +31,5 @@ function loadOptions() {
 }
 
 document.addEventListener("DOMContentLoaded", loadOptions);
-document.querySelector("form").addEventListener("submit", saveOptions);
+document.querySelectorAll("input[type=checkbox]")
+    .forEach(element => element.addEventListener("change", saveOptions));
