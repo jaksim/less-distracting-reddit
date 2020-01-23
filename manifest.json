@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Less Distracting Reddit",
-    "version": "0.1",
+    "version": "0.5",
 
     "description": "Kill Reddit front page + other features to make Reddit a little less distracting.",
 
