@@ -9,4 +9,4 @@ Chrome:
 TBD (Not yet approved)
 
 Firefox:  
-https://addons.mozilla.org/en-US/firefox/addon/less-distracting-reddit/ (Not yet approved)
+https://addons.mozilla.org/en-US/firefox/addon/less-distracting-reddit/
