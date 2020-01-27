@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Less Distracting Reddit",
+    "version": "0.5",
+
+    "description": "Kill Reddit front page + other features to make Reddit a little less distracting.",
+
+    "icons": {
+        "48": "img/icon.png",
+        "96": "img/icon2x.png"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*.reddit.com/*"],
+            "js": ["src/UrlParser.js", "src/kill.js"]
+        }
+    ],
+
+    "options_ui": {
+        "open_in_tab": false,
+        "page": "options/options.html"
+    },
+
+    "permissions": ["storage"]
+}
