@@ -5,9 +5,15 @@
     }
 }
 
+p.checkbox {
+    margin-left: 5px;
+}
+
 /* Hide the default checkbox in an a11y friendly way */
 .checkbox input[type='checkbox'] {
     opacity: 0;
+    position: absolute;
+    left: 0px;
 }
 
 .checkbox label {
