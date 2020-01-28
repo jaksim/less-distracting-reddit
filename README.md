@@ -6,7 +6,7 @@ Kill Reddit front page + other features to make Reddit a little less distracting
 The easiest way to use this addon is to download it from the official addon store for your browser.
 
 Chrome:  
-TBD (Not yet approved)
+https://chrome.google.com/webstore/detail/less-distracting-reddit/ililagkodjpoopfjphagpamfhfbamppa
 
 Firefox:  
 https://addons.mozilla.org/en-US/firefox/addon/less-distracting-reddit/
